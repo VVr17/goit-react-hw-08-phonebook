@@ -3,12 +3,15 @@ import { useForm } from 'react-hook-form'; // Forms
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
 import { Button } from 'components/Button/Button';
-import { Input } from './Input/Input';
+import { Input } from '../Input/Input';
 import {
   useAddContactMutation,
   useGetContactsQuery,
 } from 'redux/contactsSlice';
 import { Loader } from 'components/Loader/Loader';
+import { Form } from './NewContactForm.styled';
+import { LinkStyled } from 'components/NavLink/NavLink.styled';
+import { Box } from 'components/Box/Box';
 
 const INITIAL_STATE = {
   name: '',
@@ -68,7 +71,7 @@ export const NewContactForm = () => {
 
   return (
     /* "handleSubmit" will validate inputs before invoking "onSubmit" */
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Input
         name="name"
         placeholder="Name"
@@ -82,9 +85,18 @@ export const NewContactForm = () => {
         error={errors.phone}
       />
       <Loader isLoading={isCreating} />
-      <Button type="submit" name="primary">
-        Add Contact
-      </Button>
-    </form>
+      <Box
+        display={['flex']}
+        justifyContent={'space-between'}
+        maxWidth="280px"
+        mx="auto"
+      >
+        <Button type="submit" name="primary">
+          Add Contact
+        </Button>
+        <LinkStyled to="/contacts">Go Back</LinkStyled>
+        {/* <LinkGoBack to={previousPage.current}>Go Back</LinkGoBack> */}
+      </Box>
+    </Form>
   );
 };

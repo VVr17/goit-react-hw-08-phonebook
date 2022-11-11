@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const Contacts = styled.ul`
   list-style: none;
+  margin-bottom: ${p => p.theme.space[4]}px;
 
   li {
     padding: ${p => p.theme.space[2]}px;

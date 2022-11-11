@@ -10,12 +10,36 @@ export const ButtonStyled = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   border: ${p => p.theme.borders.normal} ${p => p.theme.colors.secondaryColor};
-  background-color: ${p =>
-    p.name === 'primary' ? p.theme.colors.secondaryColor : 'transparent'};
-  color: ${p =>
-    p.name === 'primary'
-      ? p.theme.colors.secondaryTextColor
-      : p.theme.colors.secondaryColor};
+  background-color: ${p => {
+    switch (p.name) {
+      case 'primary':
+        return p.theme.colors.secondaryColor;
+      case 'darkMode':
+        return 'transparent';
+      default:
+        return 'transparent';
+    }
+  }};
+  color: ${p => {
+    switch (p.name) {
+      case 'primary':
+        return p.theme.colors.secondaryTextColor;
+      case 'darkMode':
+        return p.theme.colors.secondaryTextColor;
+      default:
+        return p.theme.colors.secondaryColor;
+    }
+  }};
+  border-color: ${p => {
+    switch (p.name) {
+      case 'primary':
+        return p.theme.colors.secondaryColor;
+      case 'darkMode':
+        return p.theme.colors.secondaryTextColor;
+      default:
+        return p.theme.colors.secondaryColor;
+    }
+  }};
   border-radius: ${p => p.theme.radii.normal};
 
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -25,8 +49,14 @@ export const ButtonStyled = styled.button`
 
   :hover,
   :focus {
-    background-color: ${p => p.theme.colors.accentBackgroundColor};
-    border-color: ${p => p.theme.colors.accentBackgroundColor};
+    background-color: ${p =>
+      p.name === 'darkMode'
+        ? 'transparent'
+        : p.theme.colors.accentBackgroundColor};
+    border-color: ${p =>
+      p.name === 'darkMode'
+        ? p.theme.colors.secondaryTextColor
+        : p.theme.colors.accentBackgroundColor};
     color: ${p => p.theme.colors.accent};
     box-shadow: 0px 4px 4px ${p => p.theme.colors.btnShadowColor};
   }
