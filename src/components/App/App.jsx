@@ -1,31 +1,20 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { Box } from 'components/Box/Box';
 import { ContactList } from 'components/ContactList/ContactList';
-import { fetchContacts } from 'redux/operations';
-import {
-  selectContacts,
-  selectError,
-  selectLoading,
-  selectFilteredContacts,
-} from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 import { Filter } from 'components/Filter/Filter';
 import { Loader } from 'components/Loader/Loader';
 import { NewContactForm } from 'components/NewContactForm/NewContactForm';
 import { Section } from 'components/Section/Section';
 import { Text, Title } from './App.styled';
+import { useGetContactsQuery } from 'redux/contactsSlice';
+import { getFilteredContacts } from 'helpers/getFilteredContacts';
 
 export const App = () => {
-  const contacts = useSelector(selectContacts);
-  const filteredContacts = useSelector(selectFilteredContacts);
-  const isLoading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const { data: contacts, error, isLoading } = useGetContactsQuery();
+  const filter = useSelector(selectFilter);
+  const filteredContacts = getFilteredContacts(contacts || [], filter);
 
   return (
     <Box as="main" bg="mainBackgroundColor">
@@ -34,7 +23,7 @@ export const App = () => {
         <NewContactForm />
       </Section>
       <Section title="Contacts">
-        {contacts.length > 0 && <Filter />}
+        {contacts?.length > 0 && <Filter />}
         <Loader isLoading={isLoading} />
         {filteredContacts.length > 0 ? (
           <ContactList />

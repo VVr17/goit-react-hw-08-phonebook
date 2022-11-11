@@ -1,12 +1,14 @@
 import { toast } from 'react-toastify'; // Notifications
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form'; // Forms
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
-import { addContact } from 'redux/operations';
 import { Button } from 'components/Button/Button';
-import { selectContacts } from 'redux/selectors';
 import { Input } from './Input/Input';
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+} from 'redux/contactsSlice';
+import { Loader } from 'components/Loader/Loader';
 
 const INITIAL_STATE = {
   name: '',
@@ -33,8 +35,8 @@ const validationSchema = yup.object().shape({
 });
 
 export const NewContactForm = () => {
-  const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  const { data: contacts } = useGetContactsQuery();
+  const [addContact, { isLoading: isCreating }] = useAddContactMutation();
 
   const {
     register,
@@ -49,17 +51,17 @@ export const NewContactForm = () => {
   const onSubmit = data => {
     const { name } = data;
 
-    if (isInPhoneBook(name)) {
+    if (contacts && isInPhoneBook(name, contacts)) {
       toast.warn(`${name?.toUpperCase()} is already in CONTACTS`);
-      reset();
       return;
     }
-    dispatch(addContact(data));
+
+    addContact(data);
     toast.success(`${name?.toUpperCase()} successfully added to CONTACTS`);
     reset();
   };
 
-  function isInPhoneBook(name) {
+  function isInPhoneBook(name, contacts = []) {
     const normalizedName = name.toLowerCase();
     return contacts.find(({ name }) => name.toLowerCase() === normalizedName);
   }
@@ -79,6 +81,7 @@ export const NewContactForm = () => {
         register={register}
         error={errors.phone}
       />
+      <Loader isLoading={isCreating} />
       <Button type="submit" name="primary">
         Add Contact
       </Button>

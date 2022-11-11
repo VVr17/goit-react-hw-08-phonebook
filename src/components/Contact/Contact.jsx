@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import { Box } from 'components/Box/Box';
 import { Button } from 'components/Button/Button';
 import { ContactStyled } from './Contact.styled';
-import { deleteContact } from 'redux/operations';
+import { useDeleteContactMutation } from 'redux/contactsSlice';
 
 export const Contact = ({ name, phone, id }) => {
-  const dispatch = useDispatch();
+  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
 
   function onDelete(id, name) {
-    dispatch(deleteContact(id));
+    deleteContact(id);
     toast.info(`${name.toUpperCase()} deleted from CONTACTS`);
   }
 
@@ -20,7 +19,9 @@ export const Contact = ({ name, phone, id }) => {
         <p>{name}:</p>
         <p>{phone}</p>
       </Box>
-      <Button onClick={() => onDelete(id, name)}>Delete</Button>
+      <Button onClick={() => onDelete(id, name)}>
+        {isDeleting ? `Deleting...` : `Delete`}
+      </Button>
     </ContactStyled>
   );
 };
