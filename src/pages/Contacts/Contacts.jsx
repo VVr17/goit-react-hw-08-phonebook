@@ -7,7 +7,7 @@ import { Section } from 'components/Section/Section';
 import { useGetContactsQuery } from 'redux/contactsSlice';
 import { getFilteredContacts } from 'helpers/getFilteredContacts';
 import { Text } from './Contacts.styled';
-import { LinkStyled } from 'components/NavLink/NavLink.styled';
+import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 
 export const Contacts = () => {
   const { data: contacts, error, isLoading } = useGetContactsQuery();

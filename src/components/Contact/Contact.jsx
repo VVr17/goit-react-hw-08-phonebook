@@ -15,7 +15,7 @@ export const Contact = ({ name, phone, id }) => {
 
   return (
     <ContactStyled>
-      <Box display={['block', 'block', 'flex']}>
+      <Box display={['block', 'block', 'flex', 'flex']}>
         <p>{name}:</p>
         <p>{phone}</p>
       </Box>

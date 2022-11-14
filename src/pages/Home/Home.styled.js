@@ -1,20 +1,17 @@
 import styled from '@emotion/styled';
 
-export const Title = styled.h2`
+export const Title = styled.h1`
   display: block;
-  margin-bottom: ${p => p.theme.space[3]}px;
+  padding-top: ${p => p.theme.space[3]}px;
+  padding-bottom: ${p => p.theme.space[3]}px;
   font-weight: ${p => p.theme.fontWeight.bold};
-  font-size: ${p => p.theme.fontSizes.s};
+  font-size: ${p => p.theme.fontSizes.m};
+  color: ${p => p.theme.colors.accentTextColor};
   line-height: 1.18;
   letter-spacing: 0.05em;
-  color: ${p => p.theme.colors.accentTextColor};
   text-align: center;
 
   ${p => p.theme.mediaQueries.medium} {
-    font-size: ${p => p.theme.fontSizes.m};
-  }
-
-  ${p => p.theme.mediaQueries.large} {
     font-size: ${p => p.theme.fontSizes.l};
   }
 `;

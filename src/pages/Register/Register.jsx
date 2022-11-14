@@ -3,7 +3,7 @@ import { Section } from 'components/Section/Section';
 
 export const Register = () => {
   return (
-    <Section title="Register Form">
+    <Section title="Register">
       <RegisterForm />
     </Section>
   );

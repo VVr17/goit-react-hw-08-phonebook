@@ -12,7 +12,8 @@ export const Section = ({ title, children }) => (
       bg="white"
       boxShadow={theme.boxShadow.second}
       borderRadius={theme.radii.normal}
-      maxWidth={['100%', '100%', '768px', '1000px']}
+      maxWidth={['100%', '100%', '768px', '900px']}
+      textAlign="center"
     >
       {title && <Title>{title}</Title>}
       {children}

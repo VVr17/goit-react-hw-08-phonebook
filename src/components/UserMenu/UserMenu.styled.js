@@ -19,11 +19,11 @@ export const UserMenuStyled = styled.div`
     color: ${p => p.theme.colors.secondaryTextColor};
 
     ${p => p.theme.mediaQueries.smallOnly} {
-      margin-bottom: ${p => p.theme.space[2]}px;
+      margin-bottom: ${p => p.theme.space[3]}px;
     }
 
     ${p => p.theme.mediaQueries.medium} {
-      margin-right: ${p => p.theme.space[3]}px;
+      margin-right: ${p => p.theme.space[4]}px;
     }
   }
 `;

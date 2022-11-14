@@ -8,11 +8,12 @@ export const NavigationStyled = styled.nav`
   ul {
     display: flex;
     list-style: none;
-    gap: ${p => p.theme.space[3]}px;
+    gap: ${p => p.theme.space[4]}px;
   }
 `;
 
 export const Link = styled(NavLink)`
+  display: block;
   padding-top: ${p => p.theme.space[2]}px;
   padding-bottom: ${p => p.theme.space[2]}px;
   text-decoration: none;

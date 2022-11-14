@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Login = () => {
   return (
-    <Section title="Login Form">
+    <Section title="Login">
       <LoginForm />
     </Section>
   );

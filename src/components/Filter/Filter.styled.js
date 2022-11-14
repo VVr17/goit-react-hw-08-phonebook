@@ -4,6 +4,7 @@ export const FilterLabelStyled = styled.label`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: start;
   margin-bottom: ${p => p.theme.space[4]}px;
   width: 100%;
   font-size: ${p => p.theme.fontSizes.s};

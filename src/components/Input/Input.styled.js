@@ -4,6 +4,7 @@ export const LabelStyled = styled.label`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: start;
   margin-bottom: ${p => p.theme.space[3]}px;
   font-size: ${p => p.theme.fontSizes.s};
   font-weight: ${p => p.theme.fontWeight.semiBold};

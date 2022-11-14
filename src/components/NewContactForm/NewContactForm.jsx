@@ -10,12 +10,12 @@ import {
 } from 'redux/contactsSlice';
 import { Loader } from 'components/Loader/Loader';
 import { Form } from './NewContactForm.styled';
-import { LinkStyled } from 'components/NavLink/NavLink.styled';
+import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 import { Box } from 'components/Box/Box';
 
 const INITIAL_STATE = {
   name: '',
-  phone: '',
+  number: '',
 };
 
 const validationSchema = yup.object().shape({
@@ -28,7 +28,7 @@ const validationSchema = yup.object().shape({
       "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
     )
     .required('Name is required'),
-  phone: yup
+  number: yup
     .string()
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
@@ -79,10 +79,11 @@ export const NewContactForm = () => {
         error={errors.name}
       />
       <Input
-        name="phone"
+        type="tel"
+        name="number"
         placeholder="Phone number"
         register={register}
-        error={errors.phone}
+        error={errors.number}
       />
       <Loader isLoading={isCreating} />
       <Box
