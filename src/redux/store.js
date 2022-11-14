@@ -9,25 +9,21 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { persistedAuthReducer } from './auth/authSlice';
-// import { authReducer } from './auth/authSlice';
-import { contactsApi } from './contactsSlice';
+import { contactsReducer } from './contacts/contactsSlice';
 import { filterReducer } from './filterSlice';
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    // auth: authReducer,
-    [contactsApi.reducerPath]: contactsApi.reducer,
+    contacts: contactsReducer,
     filter: filterReducer,
   },
-  middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware({
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-    contactsApi.middleware,
-  ],
 });
 
 export const persistor = persistStore(store);

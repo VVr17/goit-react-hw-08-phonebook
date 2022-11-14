@@ -1,18 +1,23 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContactList } from 'components/ContactList/ContactList';
-import { selectFilter } from 'redux/selectors';
+import { contactsSelectors, selectFilteredContacts } from 'redux/selectors';
 import { Filter } from 'components/Filter/Filter';
 import { Loader } from 'components/Loader/Loader';
 import { Section } from 'components/Section/Section';
-import { useGetContactsQuery } from 'redux/contactsSlice';
-import { getFilteredContacts } from 'helpers/getFilteredContacts';
 import { Text } from './Contacts.styled';
 import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 
 export const Contacts = () => {
-  const { data: contacts, error, isLoading } = useGetContactsQuery();
-  const filter = useSelector(selectFilter);
-  const filteredContacts = getFilteredContacts(contacts || [], filter);
+  const contacts = useSelector(contactsSelectors.selectContacts);
+  const isLoading = useSelector(contactsSelectors.selectLoading);
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <Section title="Contacts">
@@ -23,7 +28,6 @@ export const Contacts = () => {
       ) : (
         <Text>There are no contacts</Text>
       )}
-      {error && <p>{error}</p>}
       <LinkStyled to="/newContact">Create new contact</LinkStyled>
     </Section>
   );

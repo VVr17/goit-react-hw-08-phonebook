@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { persistReducer } from 'redux-persist'; // to connect Redux State with LocalStorage
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { LOCAL_STORAGE_KEY } from 'redux/constants';
+import { LOCAL_STORAGE_KEY } from 'constants/constants';
 import { userLogin, userLogout, userRegister } from './authOperations';
 
 const authInitialState = {
@@ -60,10 +60,10 @@ const authSlice = createSlice({
   },
 });
 
-// export const authReducer = authSlice.reducer;
 const persistConfig = {
   key: LOCAL_STORAGE_KEY.user,
   storage,
+  whitelist: ['token'],
 };
 
 export const persistedAuthReducer = persistReducer(

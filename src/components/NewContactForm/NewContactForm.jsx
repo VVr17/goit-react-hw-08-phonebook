@@ -4,14 +4,13 @@ import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form wo
 import * as yup from 'yup'; // Form validation
 import { Button } from 'components/Button/Button';
 import { Input } from '../Input/Input';
-import {
-  useAddContactMutation,
-  useGetContactsQuery,
-} from 'redux/contactsSlice';
 import { Loader } from 'components/Loader/Loader';
 import { Form } from './NewContactForm.styled';
 import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 import { Box } from 'components/Box/Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { contactsSelectors } from 'redux/selectors';
+import { addContact } from 'redux/contacts/contactsOperations';
 
 const INITIAL_STATE = {
   name: '',
@@ -38,8 +37,9 @@ const validationSchema = yup.object().shape({
 });
 
 export const NewContactForm = () => {
-  const { data: contacts } = useGetContactsQuery();
-  const [addContact, { isLoading: isCreating }] = useAddContactMutation();
+  const contacts = useSelector(contactsSelectors.selectContacts);
+  const isLoading = useSelector(contactsSelectors.selectLoading);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -58,9 +58,7 @@ export const NewContactForm = () => {
       toast.warn(`${name?.toUpperCase()} is already in CONTACTS`);
       return;
     }
-
-    addContact(data);
-    toast.success(`${name?.toUpperCase()} successfully added to CONTACTS`);
+    dispatch(addContact(data));
     reset();
   };
 
@@ -85,7 +83,7 @@ export const NewContactForm = () => {
         register={register}
         error={errors.number}
       />
-      <Loader isLoading={isCreating} />
+      <Loader isLoading={isLoading} />
       <Box
         display={['flex']}
         justifyContent={'space-between'}

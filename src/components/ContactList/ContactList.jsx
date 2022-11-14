@@ -1,20 +1,18 @@
 import { useSelector } from 'react-redux';
 import { Contact } from 'components/Contact/Contact';
 import { Contacts } from './ContactList.styled';
-import { selectFilter } from 'redux/selectors';
-import { useGetContactsQuery } from 'redux/contactsSlice';
-import { getFilteredContacts } from 'helpers/getFilteredContacts';
+import { contactsSelectors } from 'redux/selectors';
 
 export const ContactList = () => {
-  const { data: contacts } = useGetContactsQuery();
-  const filter = useSelector(selectFilter);
-  const filteredContacts = getFilteredContacts(contacts || [], filter);
+  const filteredContacts = useSelector(
+    contactsSelectors.selectFilteredContacts
+  );
 
   return (
     <Contacts>
-      {filteredContacts.map(({ name, phone, id }) => (
+      {filteredContacts.map(({ name, number, id }) => (
         <li key={id}>
-          <Contact name={name} phone={phone} id={id} />
+          <Contact name={name} number={number} id={id} />
         </li>
       ))}
     </Contacts>

@@ -1,20 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { BASE_URL } from 'redux/constants';
-
-axios.defaults.baseURL = BASE_URL;
-
-// при перезагрузке проверить есть ли токен в хранилище и достать оттуда
-
-const authorizationHeader = {
-  setAuthToken(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-
-  deleteAuthToken(token) {
-    axios.defaults.headers.common.Authorization = '';
-  },
-};
+import { authorizationHeader } from 'helpers/axiosOptions';
 
 export const userRegister = createAsyncThunk(
   'auth/register',
