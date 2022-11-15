@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 export const ButtonStyled = styled.button`
   padding: ${p => p.theme.space[2]}px ${p => p.theme.space[3]}px;
-  min-width: ${p => p.theme.space[6]}px;
-  min-height: ${p => p.theme.space[4]}px;
+  min-width: 100px;
+  min-height: 30px;
 
   font-size: ${p => p.theme.fontSizes.xs};
   font-weight: ${p => p.theme.fontWeight.semiBold};
@@ -61,7 +61,7 @@ export const ButtonStyled = styled.button`
     box-shadow: 0px 4px 4px ${p => p.theme.colors.btnShadowColor};
   }
 
-  :not(:last-of-type) {
+  /* :not(:last-of-type) {
     margin-right: ${p => p.theme.space[3]}px;
-  }
+  } */
 `;

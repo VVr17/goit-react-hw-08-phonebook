@@ -9,8 +9,8 @@ import { Form } from './NewContactForm.styled';
 import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 import { Box } from 'components/Box/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { contactsSelectors } from 'redux/selectors';
 import { addContact } from 'redux/contacts/contactsOperations';
+import { contactsSelectors } from 'redux/contacts/contactsSelectors';
 
 const INITIAL_STATE = {
   name: '',

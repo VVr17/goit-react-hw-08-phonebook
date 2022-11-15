@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
-import { addContact, deleteContact, fetchContacts } from './contactsOperations';
+import {
+  addContact,
+  deleteContact,
+  fetchContacts,
+  updateContact,
+} from './contactsOperations';
 
 // Using Immer for immutable state changes
 const handlePending = state => {
@@ -20,42 +24,37 @@ const contactsSlice = createSlice({
     error: null,
   },
   extraReducers: {
-    // first fetch contacts from API
     [fetchContacts.pending]: handlePending,
+    [addContact.pending]: handlePending,
+    [updateContact.pending]: handlePending,
+    [deleteContact.pending]: handlePending,
+
     [fetchContacts.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.error = null;
       state.items = payload;
     },
-    [fetchContacts.rejected](state, { payload }) {
-      state.error = payload;
-      state.isLoading = false;
-      toast.error(
-        ` There are no contacts found. Please, check your access and try again`
-      );
-    },
-
-    // add contact to Api
-    [addContact.pending]: handlePending,
     [addContact.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.error = null;
       state.items.push(payload);
-      toast.success(
-        `${payload.name.toUpperCase()} successfully added to CONTACTS`
-      );
     },
-    [addContact.rejected]: handleRejected,
-
-    // delete contact from Api
-    [deleteContact.pending]: handlePending,
     [deleteContact.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.error = null;
       const index = state.items.findIndex(({ id }) => id === payload.id);
       state.items.splice(index, 1);
-      toast.info(`${payload.name.toUpperCase()} deleted from CONTACTS`);
     },
+    [updateContact.fulfilled](state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(({ id }) => id === payload.id);
+      state.items.splice(index, 1, payload);
+    },
+
+    [fetchContacts.rejected]: handleRejected,
+    [addContact.rejected]: handleRejected,
+    [updateContact.rejected]: handleRejected,
     [deleteContact.rejected]: handleRejected,
   },
 });

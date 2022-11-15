@@ -1,7 +1,7 @@
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { authSelectors } from 'redux/selectors';
+import { authSelectors } from 'redux/auth/authSelectors';
 import { Link, NavigationStyled } from './Navigation.styled';
 
 const authNavItems = [

@@ -5,7 +5,7 @@ export const Contacts = styled.ul`
   margin-bottom: ${p => p.theme.space[4]}px;
 
   li {
-    padding: ${p => p.theme.space[2]}px;
+    padding: ${p => p.theme.space[3]}px;
     border-radius: ${p => p.theme.space[1]}px;
     box-shadow: ${p => p.theme.boxShadow.first};
     background-color: ${p => p.theme.colors.backgroundContactCardColor};

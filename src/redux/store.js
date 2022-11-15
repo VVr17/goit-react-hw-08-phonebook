@@ -10,7 +10,7 @@ import {
 } from 'redux-persist';
 import { persistedAuthReducer } from './auth/authSlice';
 import { contactsReducer } from './contacts/contactsSlice';
-import { filterReducer } from './filterSlice';
+import { filterReducer } from './filter/filterSlice';
 
 export const store = configureStore({
   reducer: {

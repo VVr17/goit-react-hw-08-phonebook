@@ -12,14 +12,14 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter basename="/goit-react-hw-08-phonebook/">
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter basename="/goit-react-hw-08-phonebook/">
+          <ThemeProvider theme={theme}>
             <App />
-          </PersistGate>
-        </Provider>
-      </BrowserRouter>
-    </ThemeProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );

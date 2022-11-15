@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Contact } from 'components/Contact/Contact';
 import { Contacts } from './ContactList.styled';
-import { contactsSelectors } from 'redux/selectors';
+import { contactsSelectors } from 'redux/contacts/contactsSelectors';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(

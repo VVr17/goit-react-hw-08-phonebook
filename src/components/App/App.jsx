@@ -6,8 +6,17 @@ import { Layout } from 'components/Layout/Layout';
 import { Register } from 'pages/Register/Register';
 import { NewContact } from 'pages/NewContact/NewContact';
 import { Home } from 'pages/Home/Home';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getCurrentUser } from 'redux/auth/authOperations';
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   return (
     <>
       <Routes>
@@ -19,7 +28,11 @@ export const App = () => {
           <Route path="newContact" element={<NewContact />} />
         </Route>
       </Routes>
-      <ToastContainer autoClose={3000} theme="colored" />
+      <ToastContainer
+        autoClose={3000}
+        theme="colored"
+        position="bottom-right"
+      />
     </>
   );
 };

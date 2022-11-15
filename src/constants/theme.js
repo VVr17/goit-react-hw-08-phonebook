@@ -18,6 +18,7 @@ export const theme = Object.freeze({
     backgroundContactCardColor: 'rgba(247, 227, 201, 0.2)',
     bgErrorColor: ' rgba(142, 22, 0, 0.08)',
     btnShadowColor: 'rgba(0, 0, 0, 0.15)',
+    backdropColor: ' rgba(0, 0, 0, 0.5)',
   },
 
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
