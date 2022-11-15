@@ -9,6 +9,8 @@ import { Home } from 'pages/Home/Home';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from 'redux/auth/authOperations';
+import { PrivateRoute } from 'components/Routes/PrivateRoute';
+import { RestrictedRoute } from 'components/Routes/RestrictedRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -22,10 +24,28 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="newContact" element={<NewContact />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute component={Register} redirectTo="/contacts" />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute component={Login} redirectTo="/contacts" />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={<PrivateRoute component={Contacts} redirectTo="/login" />}
+          />
+          <Route
+            path="/newContact"
+            element={
+              <PrivateRoute component={NewContact} redirectTo="/login" />
+            }
+          />
         </Route>
       </Routes>
       <ToastContainer

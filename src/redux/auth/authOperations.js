@@ -56,7 +56,8 @@ export const getCurrentUser = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     const token = getState().auth.token;
 
-    if (!token) return rejectWithValue('There are no token, login is needed');
+    if (!token)
+      return rejectWithValue('There is no valid token, login is needed');
 
     authorizationHeader.setAuthToken(token);
 

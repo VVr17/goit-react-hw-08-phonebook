@@ -9,9 +9,6 @@ export const fetchContacts = createAsyncThunk(
       const { data } = await axios.get('/contacts');
       return data;
     } catch (error) {
-      toast.error(
-        ` There are no contacts found. Please, check your access and try again`
-      );
       return rejectWithValue(error.message);
     }
   }

@@ -17,6 +17,8 @@ export const UserMenuStyled = styled.div`
 
   p {
     color: ${p => p.theme.colors.secondaryTextColor};
+    font-size: ${p => p.theme.fontSizes.s};
+    font-weight: 600;
 
     ${p => p.theme.mediaQueries.smallOnly} {
       margin-bottom: ${p => p.theme.space[3]}px;

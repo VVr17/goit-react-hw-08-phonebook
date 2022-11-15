@@ -26,8 +26,8 @@ export const Contact = ({ name, number, id }) => {
           <p>{number}</p>
         </Box>
         <Box display={['flex']} gridGap="16px">
+          <Button onClick={() => toggleModal()}>Update</Button>
           <Button onClick={() => dispatch(deleteContact(id))}>Delete</Button>
-          <Button onClick={() => toggleModal()}>Change</Button>
         </Box>
       </ContactStyled>
       {modalIsOpen && (

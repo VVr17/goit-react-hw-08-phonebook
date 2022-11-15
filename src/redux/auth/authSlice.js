@@ -13,6 +13,7 @@ const authInitialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  isRefreshing: false,
   error: null,
 };
 
@@ -46,13 +47,19 @@ const authSlice = createSlice({
     [getCurrentUser.fulfilled](state, { payload }) {
       state.user = payload;
       state.isLoggedIn = true;
+      state.isRefreshing = false;
       state.error = null;
     },
-
+    [getCurrentUser.pending](state, { payload }) {
+      state.isRefreshing = true;
+    },
     [userLogin.rejected]: handleRejected,
     [userRegister.rejected]: handleRejected,
     [userLogout.rejected]: handleRejected,
-    [getCurrentUser.rejected]: handleRejected,
+    [getCurrentUser.rejected](state, { payload }) {
+      state.error = payload;
+      state.isRefreshing = false;
+    },
   },
 });
 

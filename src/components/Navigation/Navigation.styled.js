@@ -8,7 +8,11 @@ export const NavigationStyled = styled.nav`
   ul {
     display: flex;
     list-style: none;
-    gap: ${p => p.theme.space[4]}px;
+    gap: ${p => p.theme.space[3]}px;
+
+    ${p => p.theme.mediaQueries.large} {
+      gap: ${p => p.theme.space[4]}px;
+    }
   }
 `;
 
@@ -18,7 +22,7 @@ export const Link = styled(NavLink)`
   padding-bottom: ${p => p.theme.space[2]}px;
   text-decoration: none;
   color: ${p => p.theme.colors.white};
-  font-size: 20px;
+  font-size: ${p => p.theme.fontSizes.s};
   font-weight: 700;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -33,5 +37,9 @@ export const Link = styled(NavLink)`
   &:hover:not(.active),
   &:focus:not(.active) {
     color: ${p => p.theme.colors.accent};
+  }
+
+  ${p => p.theme.mediaQueries.medium} {
+    font-size: ${p => p.theme.fontSizes.m};
   }
 `;
