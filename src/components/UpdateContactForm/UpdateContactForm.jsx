@@ -5,9 +5,12 @@ import * as yup from 'yup'; // Form validation
 import { Button } from 'components/Button/Button';
 import { Input } from '../Input/Input';
 import { Box } from 'components/Box/Box';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateContact } from 'redux/contacts/contactsOperations';
 import { Form, Title } from './UpdateContactForm.styled';
+import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { contactsSelectors } from 'redux/contacts/contactsSelectors';
 
 const INITIAL_STATE = {
   name: '',
@@ -33,8 +36,12 @@ const validationSchema = yup.object().shape({
     .required('Number is required'),
 });
 
-export const UpdateContactForm = ({ name, id, closeModal }) => {
+export const UpdateContactForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { contactId } = useParams();
+  const contacts = useSelector(contactsSelectors.selectContacts);
+  const { id, name, number } = contacts.find(({ id }) => id === contactId);
 
   const {
     register,
@@ -42,13 +49,13 @@ export const UpdateContactForm = ({ name, id, closeModal }) => {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: { ...INITIAL_STATE, name },
+    defaultValues: { ...INITIAL_STATE, name, number },
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = data => {
-    dispatch(updateContact({ updatedContact: data, id }));
-    closeModal();
+    dispatch(updateContact({ ...data, id }));
+    navigate('/contacts');
     reset();
   };
 
@@ -80,17 +87,11 @@ export const UpdateContactForm = ({ name, id, closeModal }) => {
           <Button type="submit" name="primary">
             Update Contact
           </Button>
-          <Button name="primary" onClick={closeModal}>
+          <LinkStyled name="primary" to="/contacts">
             Back to Contacts
-          </Button>
+          </LinkStyled>
         </Box>
       </Form>
     </>
   );
-};
-
-UpdateContactForm.propTypes = {
-  name: PropTypes.string.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
 };

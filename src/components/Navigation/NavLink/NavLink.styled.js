@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const LinkStyled = styled(Link)`
   display: inline-block;
   padding: ${p => p.theme.space[2]}px ${p => p.theme.space[3]}px;
-  min-width: 130px;
+  min-width: 100px;
   max-width: 180px;
   text-align: center;
   min-height: ${p => p.theme.space[4]}px;
@@ -14,8 +14,14 @@ export const LinkStyled = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   border: ${p => p.theme.borders.normal} ${p => p.theme.colors.secondaryColor};
-  background-color: ${p => p.theme.colors.secondaryColor};
-  color: ${p => p.theme.colors.secondaryTextColor};
+  /* background-color: ${p => p.theme.colors.secondaryColor}; */
+  background-color: ${p =>
+    p.name === 'lightMode' ? 'transparent' : p.theme.colors.secondaryColor};
+  /* color: ${p => p.theme.colors.secondaryTextColor}; */
+  color: ${p =>
+    p.name === 'lightMode'
+      ? p.theme.colors.secondaryColor
+      : p.theme.colors.secondaryTextColor};
   border-radius: ${p => p.theme.radii.normal};
 
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),

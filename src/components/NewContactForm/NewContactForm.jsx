@@ -5,12 +5,14 @@ import * as yup from 'yup'; // Form validation
 import { Button } from 'components/Button/Button';
 import { Input } from '../Input/Input';
 import { Loader } from 'components/Loader/Loader';
-import { Form } from './NewContactForm.styled';
+import { Form, Text } from './NewContactForm.styled';
 import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 import { Box } from 'components/Box/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contacts/contactsOperations';
+import { addContact, updateContact } from 'redux/contacts/contactsOperations';
 import { contactsSelectors } from 'redux/contacts/contactsSelectors';
+import { useState } from 'react';
+import { Modal } from 'components/Modal/Modal';
 
 const INITIAL_STATE = {
   name: '',
@@ -41,6 +43,10 @@ export const NewContactForm = () => {
   const isLoading = useSelector(contactsSelectors.selectLoading);
   const dispatch = useDispatch();
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [duplicatedContact, setDuplicatedContact] = useState({});
+  const toggleModal = () => setModalIsOpen(prevModalState => !prevModalState);
+
   const {
     register,
     handleSubmit,
@@ -56,6 +62,11 @@ export const NewContactForm = () => {
 
     if (contacts && isInPhoneBook(name, contacts)) {
       toast.warn(`${name?.toUpperCase()} is already in CONTACTS`);
+      const { id } = isInPhoneBook(name, contacts);
+      console.log('contact', id);
+      setDuplicatedContact({ ...data, id }); //изменить на  --- data + id
+      console.log('duplicatedContact', duplicatedContact);
+      toggleModal();
       return;
     }
     dispatch(addContact(data));
@@ -67,35 +78,58 @@ export const NewContactForm = () => {
     return contacts.find(({ name }) => name.toLowerCase() === normalizedName);
   }
 
+  function update() {
+    console.log('update - duplicatedContact', duplicatedContact);
+    // const { id, name, number } = duplicatedContact;
+    console.log('---', duplicatedContact.name);
+    console.log('---', duplicatedContact.number);
+    console.log('---', duplicatedContact.id);
+    dispatch(
+      updateContact({
+        ...duplicatedContact,
+      })
+    );
+  }
+
   return (
-    /* "handleSubmit" will validate inputs before invoking "onSubmit" */
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        name="name"
-        placeholder="Name"
-        register={register}
-        error={errors.name}
-      />
-      <Input
-        type="tel"
-        name="number"
-        placeholder="Phone number"
-        register={register}
-        error={errors.number}
-      />
-      <Loader isLoading={isLoading} />
-      <Box
-        display={['flex']}
-        justifyContent={'space-between'}
-        maxWidth="280px"
-        mx="auto"
-      >
-        <Button type="submit" name="primary">
-          Add Contact
-        </Button>
-        <LinkStyled to="/contacts">Go Back</LinkStyled>
-        {/* <LinkGoBack to={previousPage.current}>Go Back</LinkGoBack> */}
-      </Box>
-    </Form>
+    <>
+      {/* "handleSubmit" will validate inputs before invoking "onSubmit"  */}
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          name="name"
+          placeholder="Name"
+          register={register}
+          error={errors.name}
+        />
+        <Input
+          type="tel"
+          name="number"
+          placeholder="Phone number"
+          register={register}
+          error={errors.number}
+        />
+        <Loader isLoading={isLoading} />
+        <Box
+          display={['flex']}
+          justifyContent={'space-between'}
+          maxWidth="280px"
+          mx="auto"
+        >
+          <Button type="submit" name="primary">
+            Add Contact
+          </Button>
+          <LinkStyled to="/contacts">Go Back</LinkStyled>
+          {/* <LinkGoBack to={previousPage.current}>Go Back</LinkGoBack> */}
+        </Box>
+      </Form>
+      {modalIsOpen && (
+        <Modal closeModal={toggleModal}>
+          <Text>
+            User is already in Contacts. Do you want to Update contact?
+          </Text>
+          <Button onClick={update}>Update</Button>
+        </Modal>
+      )}
+    </>
   );
 };

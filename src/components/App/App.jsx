@@ -11,6 +11,8 @@ import { useEffect } from 'react';
 import { getCurrentUser } from 'redux/auth/authOperations';
 import { PrivateRoute } from 'components/Routes/PrivateRoute';
 import { RestrictedRoute } from 'components/Routes/RestrictedRoute';
+import { ContactDetails } from 'pages/ContactDetails/ContactDetails';
+import { UpdateContactForm } from 'components/UpdateContactForm/UpdateContactForm';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,24 @@ export const App = () => {
             path="/contacts"
             element={<PrivateRoute component={Contacts} redirectTo="/login" />}
           />
+
+          <Route
+            path="/contacts/:contactId"
+            element={
+              <PrivateRoute component={ContactDetails} redirectTo="/login" />
+            }
+          >
+            <Route
+              path="updateContact"
+              element={
+                <PrivateRoute
+                  component={UpdateContactForm}
+                  redirectTo="/login"
+                />
+              }
+            />
+          </Route>
+
           <Route
             path="/newContact"
             element={
