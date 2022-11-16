@@ -2,7 +2,7 @@ import { Section } from 'components/Section/Section';
 import { ReactComponent as IconPhoneBook } from '../../icons/telephone.svg';
 import { Title } from './Home.styled';
 
-export const Home = () => {
+const Home = () => {
   return (
     <Section>
       <Title>"Welcome to Phone book"</Title>
@@ -10,3 +10,5 @@ export const Home = () => {
     </Section>
   );
 };
+
+export default Home;

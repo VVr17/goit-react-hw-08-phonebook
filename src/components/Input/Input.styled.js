@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const LabelStyled = styled.label`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;

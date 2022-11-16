@@ -51,6 +51,7 @@ export const LoginForm = () => {
         register={register}
         error={errors.password}
       />
+
       <Button type="submit" name="primary">
         Login
       </Button>

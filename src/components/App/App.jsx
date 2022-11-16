@@ -1,18 +1,21 @@
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSelectors';
-import { Contacts } from 'pages/Contacts/Contacts';
 import { getCurrentUser } from 'redux/auth/authOperations';
-import { Home } from 'pages/Home/Home';
 import { Loader } from 'components/Loader/Loader';
-import { Login } from 'pages/Login/Login';
 import { Layout } from 'components/Layout/Layout';
-import { NewContact } from 'pages/NewContact/NewContact';
 import { PrivateRoute } from 'components/Routes/PrivateRoute';
-import { Register } from 'pages/Register/Register';
 import { RestrictedRoute } from 'components/Routes/RestrictedRoute';
+
+// JS Lazy loading
+const Home = lazy(() => import('pages/Home/Home'));
+const Contacts = lazy(() => import('pages/Contacts/Contacts'));
+const Login = lazy(() => import('pages/Login/Login'));
+const NewContact = lazy(() => import('pages/NewContact/NewContact'));
+const Register = lazy(() => import('pages/Register/Register'));
 
 export const App = () => {
   const dispatch = useDispatch();

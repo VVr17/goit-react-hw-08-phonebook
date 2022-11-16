@@ -9,7 +9,7 @@ import { Loader } from 'components/Loader/Loader';
 import { Section } from 'components/Section/Section';
 import { Text } from './Contacts.styled';
 
-export const Contacts = () => {
+const Contacts = () => {
   const contacts = useSelector(contactsSelectors.selectContacts);
   const isLoading = useSelector(contactsSelectors.selectLoading);
   const filteredContacts = useSelector(
@@ -34,3 +34,5 @@ export const Contacts = () => {
     </Section>
   );
 };
+
+export default Contacts;

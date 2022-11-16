@@ -1,10 +1,12 @@
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
 import { Section } from 'components/Section/Section';
 
-export const Register = () => {
+const Register = () => {
   return (
     <Section title="Register">
       <RegisterForm />
     </Section>
   );
 };
+
+export default Register;
