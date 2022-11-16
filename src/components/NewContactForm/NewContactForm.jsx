@@ -118,7 +118,7 @@ export const NewContactForm = () => {
           <UpdateContactModal
             contactToUpdate={duplicatedContact}
             closeModal={toggleModal}
-          ></UpdateContactModal>
+          />
         </Modal>
       )}
     </>
