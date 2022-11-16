@@ -13,7 +13,6 @@ export const Input = ({
   const [inputType, setInputType] = useState(type);
 
   const toggleInputType = event => {
-    // event.preventDefault();
     inputType === 'password' ? setInputType('text') : setInputType('password');
   };
 
