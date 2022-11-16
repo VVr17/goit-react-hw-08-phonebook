@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const InputIcon = styled.div`
+export const IconWrapper = styled.div`
   margin: 0;
   padding: 0;
   border: none;
