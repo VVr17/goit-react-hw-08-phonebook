@@ -5,6 +5,7 @@ import * as yup from 'yup'; // Form validation
 import { Button } from 'components/Button/Button';
 import { Box } from 'components/Box/Box';
 import { Input } from 'components/Input/Input';
+import { INPUT_TYPES } from 'constants/constants';
 import { userLogin } from 'redux/auth/authOperations';
 
 const INITIAL_STATE = {
@@ -38,14 +39,14 @@ export const LoginForm = () => {
   return (
     <Box as="form" textAlign="center" onSubmit={handleSubmit(onSubmit)}>
       <Input
-        type="email"
+        type={INPUT_TYPES.email}
         name="email"
         placeholder="E-mail"
         register={register}
         error={errors.email}
       />
       <Input
-        type="password"
+        type={INPUT_TYPES.password}
         name="password"
         placeholder="Password"
         register={register}

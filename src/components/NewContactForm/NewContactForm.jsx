@@ -11,6 +11,7 @@ import { Button } from 'components/Button/Button';
 import { contactsSelectors } from 'redux/contacts/contactsSelectors';
 import { Form } from './NewContactForm.styled';
 import { Input } from '../Input/Input';
+import { INPUT_TYPES } from 'constants/constants';
 import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
@@ -94,7 +95,7 @@ export const NewContactForm = () => {
           error={errors.name}
         />
         <Input
-          type="tel"
+          type={INPUT_TYPES.tel}
           name="number"
           placeholder="Phone number"
           register={register}

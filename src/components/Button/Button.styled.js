@@ -6,6 +6,11 @@ export const ButtonStyled = styled.button`
   min-height: 30px;
   font-family: inherit;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+
   font-size: ${p => p.theme.fontSizes.xs};
   font-weight: ${p => p.theme.fontWeight.bold};
   text-transform: uppercase;
@@ -66,5 +71,11 @@ export const ButtonStyled = styled.button`
         : p.theme.colors.accentBackgroundColor};
     color: ${p => p.theme.colors.accent};
     box-shadow: 0px 4px 4px ${p => p.theme.colors.btnShadowColor};
+  }
+
+  svg {
+    margin-left: ${p => p.theme.space[2]}px;
+    width: 18px;
+    height: 18px;
   }
 `;

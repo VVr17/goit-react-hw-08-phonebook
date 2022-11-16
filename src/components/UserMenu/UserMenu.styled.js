@@ -16,6 +16,9 @@ export const UserMenuStyled = styled.div`
   }
 
   p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: ${p => p.theme.colors.secondaryTextColor};
     font-size: ${p => p.theme.fontSizes.s};
     font-weight: 600;
@@ -26,6 +29,10 @@ export const UserMenuStyled = styled.div`
 
     ${p => p.theme.mediaQueries.medium} {
       margin-right: ${p => p.theme.space[4]}px;
+    }
+
+    svg {
+      margin-right: ${p => p.theme.space[2]}px;
     }
   }
 `;

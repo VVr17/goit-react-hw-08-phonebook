@@ -26,7 +26,6 @@ export const ModalStyled = styled.div`
   max-width: 480px;
   max-height: 95%;
   overflow-y: scroll;
-  border-radius: 4px;
 
   ${p => p.theme.mediaQueries.medium} {
     position: absolute;
