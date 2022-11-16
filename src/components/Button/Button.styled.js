@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 
 export const ButtonStyled = styled.button`
   padding: ${p => p.theme.space[2]}px ${p => p.theme.space[3]}px;
-  min-width: 100px;
+  min-width: 120px;
   min-height: 30px;
+  font-family: inherit;
 
   font-size: ${p => p.theme.fontSizes.xs};
-  font-weight: ${p => p.theme.fontWeight.semiBold};
+  font-weight: ${p => p.theme.fontWeight.bold};
   text-transform: uppercase;
   cursor: pointer;
   border: ${p => p.theme.borders.normal} ${p => p.theme.colors.secondaryColor};
@@ -47,6 +48,12 @@ export const ButtonStyled = styled.button`
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
+  :disabled {
+    background-color: ${p => p.theme.colors.muted};
+    border-color: ${p => p.theme.colors.muted};
+    color: ${p => p.theme.colors.mainText};
+  }
+
   :hover,
   :focus {
     background-color: ${p =>
@@ -60,8 +67,4 @@ export const ButtonStyled = styled.button`
     color: ${p => p.theme.colors.accent};
     box-shadow: 0px 4px 4px ${p => p.theme.colors.btnShadowColor};
   }
-
-  /* :not(:last-of-type) {
-    margin-right: ${p => p.theme.space[3]}px;
-  } */
 `;

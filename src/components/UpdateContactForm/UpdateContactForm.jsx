@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form'; // Forms
+import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
-import { Button } from 'components/Button/Button';
-import { Input } from '../Input/Input';
 import { Box } from 'components/Box/Box';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateContact } from 'redux/contacts/contactsOperations';
+import { Button } from 'components/Button/Button';
 import { Form, Title } from './UpdateContactForm.styled';
-import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
-import { contactsSelectors } from 'redux/contacts/contactsSelectors';
+import { Input } from '../Input/Input';
+import { updateContact } from 'redux/contacts/contactsOperations';
 
 const INITIAL_STATE = {
   name: '',
@@ -36,12 +33,8 @@ const validationSchema = yup.object().shape({
     .required('Number is required'),
 });
 
-export const UpdateContactForm = () => {
-  const navigate = useNavigate();
+export const UpdateContactForm = ({ name, number, id, closeModal }) => {
   const dispatch = useDispatch();
-  const { contactId } = useParams();
-  const contacts = useSelector(contactsSelectors.selectContacts);
-  const { id, name, number } = contacts.find(({ id }) => id === contactId);
 
   const {
     register,
@@ -55,7 +48,7 @@ export const UpdateContactForm = () => {
 
   const onSubmit = data => {
     dispatch(updateContact({ ...data, id }));
-    navigate('/contacts');
+    closeModal();
     reset();
   };
 
@@ -79,19 +72,26 @@ export const UpdateContactForm = () => {
         <Box
           display={['flex']}
           justifyContent={'space-between'}
-          maxWidth={['220px', '220px', '320px', '320px']}
+          maxWidth="220px"
           mx="auto"
           flexDirection={['column', 'column', 'row', 'row']}
           gridGap="16px"
         >
           <Button type="submit" name="primary">
-            Update Contact
+            Update
           </Button>
-          <LinkStyled name="primary" to="/contacts">
-            Back to Contacts
-          </LinkStyled>
+          <Button name="primary" onClick={closeModal}>
+            Cancel
+          </Button>
         </Box>
       </Form>
     </>
   );
+};
+
+UpdateContactForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };

@@ -50,7 +50,6 @@ export const deleteContact = createAsyncThunk(
 export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async ({ name, number, id }, { rejectWithValue }) => {
-    console.log('inside update', name, number, id);
     try {
       const { data } = await axios.patch(`/contacts/${id}`, { name, number });
       toast.info(`${data.name.toUpperCase()} successfully updated`);

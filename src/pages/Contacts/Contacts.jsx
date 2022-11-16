@@ -1,13 +1,13 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ContactList } from 'components/ContactList/ContactList';
+import { contactsSelectors } from 'redux/contacts/contactsSelectors';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 import { Filter } from 'components/Filter/Filter';
+import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
 import { Loader } from 'components/Loader/Loader';
 import { Section } from 'components/Section/Section';
 import { Text } from './Contacts.styled';
-import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
-import { useEffect } from 'react';
-import { fetchContacts } from 'redux/contacts/contactsOperations';
-import { contactsSelectors } from 'redux/contacts/contactsSelectors';
 
 export const Contacts = () => {
   const contacts = useSelector(contactsSelectors.selectContacts);
@@ -30,7 +30,7 @@ export const Contacts = () => {
       ) : (
         <Text>There are no contacts</Text>
       )}
-      <LinkStyled to="/newContact">Create new contact</LinkStyled>
+      <LinkStyled to="/newContact">Add new contact</LinkStyled>
     </Section>
   );
 };

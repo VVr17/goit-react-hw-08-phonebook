@@ -1,6 +1,5 @@
-import { Navigation } from 'components/Navigation/Navigation';
-import React from 'react';
 import { Container, Header } from './AppBar.styled';
+import { Navigation } from 'components/Navigation/Navigation';
 
 export const AppBar = () => {
   return (

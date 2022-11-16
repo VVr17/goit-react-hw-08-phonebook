@@ -25,22 +25,17 @@ export const theme = Object.freeze({
 
   fontWeight: {
     normal: 400,
-    semiBold: 600,
+    semiBold: 500,
     bold: 700,
   },
 
   fontSizes: {
     xs: '12px',
     s: '16px',
-    m: '24px',
-    l: '32px',
-    xl: '64px',
+    m: '20px',
+    l: '24px',
+    xl: '32px',
   },
-
-  // lineHeights: {
-  //   body: 1.5,
-  //   heading: 1.125,
-  // },
 
   breakpoints: [
     `${breakpoints[0]}px`,
@@ -49,6 +44,9 @@ export const theme = Object.freeze({
   ],
 
   mediaQueries: {
+    mediumMobile: `@media screen and (min-width: ${
+      breakpoints[0]
+    }px) and  (max-width: ${breakpoints[1] - 0.02}px)`,
     smallOnly: `@media screen and (max-width: ${breakpoints[1] - 0.02}px)`,
     medium: `@media screen and (min-width: ${breakpoints[1]}px)`,
     mediumOnly: `@media screen and (min-width: ${

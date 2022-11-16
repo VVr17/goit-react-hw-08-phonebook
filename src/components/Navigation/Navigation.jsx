@@ -1,8 +1,8 @@
-import { UserMenu } from 'components/UserMenu/UserMenu';
-import { authNavItems, userNavItems } from 'constants/navItems';
 import { useSelector } from 'react-redux';
 import { authSelectors } from 'redux/auth/authSelectors';
+import { authNavItems, userNavItems } from 'constants/navItems';
 import { Link, NavigationStyled } from './Navigation.styled';
+import { UserMenu } from 'components/UserMenu/UserMenu';
 
 export const Navigation = () => {
   const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);

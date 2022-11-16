@@ -1,18 +1,20 @@
 import { toast } from 'react-toastify'; // Notifications
+import { useState } from 'react';
 import { useForm } from 'react-hook-form'; // Forms
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom/dist';
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
-import { Button } from 'components/Button/Button';
-import { Input } from '../Input/Input';
-import { Loader } from 'components/Loader/Loader';
-import { Form, Text } from './NewContactForm.styled';
-import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
+import { addContact } from 'redux/contacts/contactsOperations';
 import { Box } from 'components/Box/Box';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact, updateContact } from 'redux/contacts/contactsOperations';
+import { Button } from 'components/Button/Button';
 import { contactsSelectors } from 'redux/contacts/contactsSelectors';
-import { useState } from 'react';
+import { Form } from './NewContactForm.styled';
+import { Input } from '../Input/Input';
+import { LinkStyled } from 'components/Navigation/NavLink/NavLink.styled';
+import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
+import { UpdateContactModal } from 'components/UpdateContactModal/UpdateContactModal';
 
 const INITIAL_STATE = {
   name: '',
@@ -39,12 +41,13 @@ const validationSchema = yup.object().shape({
 });
 
 export const NewContactForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const contacts = useSelector(contactsSelectors.selectContacts);
   const isLoading = useSelector(contactsSelectors.selectLoading);
-  const dispatch = useDispatch();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [duplicatedContact, setDuplicatedContact] = useState({});
+  const [duplicatedContact, setDuplicatedContact] = useState(null);
   const toggleModal = () => setModalIsOpen(prevModalState => !prevModalState);
 
   const {
@@ -57,39 +60,28 @@ export const NewContactForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const isInPhoneBook = (name, contacts = []) => {
+    const normalizedName = name.toLowerCase();
+    return contacts.find(({ name }) => name.toLowerCase() === normalizedName);
+  };
+
   const onSubmit = data => {
     const { name } = data;
+    const contactIsInPhoneBook = isInPhoneBook(name, contacts);
 
-    if (contacts && isInPhoneBook(name, contacts)) {
+    if (contacts && contactIsInPhoneBook) {
       toast.warn(`${name?.toUpperCase()} is already in CONTACTS`);
-      const { id } = isInPhoneBook(name, contacts);
-      console.log('contact', id);
-      setDuplicatedContact({ ...data, id }); //изменить на  --- data + id
-      console.log('duplicatedContact', duplicatedContact);
+      const { id } = contactIsInPhoneBook;
+
+      setDuplicatedContact({ ...data, id });
       toggleModal();
       return;
     }
+
     dispatch(addContact(data));
+    navigate('/contacts');
     reset();
   };
-
-  function isInPhoneBook(name, contacts = []) {
-    const normalizedName = name.toLowerCase();
-    return contacts.find(({ name }) => name.toLowerCase() === normalizedName);
-  }
-
-  function update() {
-    console.log('update - duplicatedContact', duplicatedContact);
-    // const { id, name, number } = duplicatedContact;
-    console.log('---', duplicatedContact.name);
-    console.log('---', duplicatedContact.number);
-    console.log('---', duplicatedContact.id);
-    dispatch(
-      updateContact({
-        ...duplicatedContact,
-      })
-    );
-  }
 
   return (
     <>
@@ -115,19 +107,18 @@ export const NewContactForm = () => {
           maxWidth="280px"
           mx="auto"
         >
-          <Button type="submit" name="primary">
+          <Button type="submit" name="primary" disabled={modalIsOpen}>
             Add Contact
           </Button>
-          <LinkStyled to="/contacts">Go Back</LinkStyled>
-          {/* <LinkGoBack to={previousPage.current}>Go Back</LinkGoBack> */}
+          <LinkStyled to="/contacts">To Contacts</LinkStyled>
         </Box>
       </Form>
       {modalIsOpen && (
         <Modal closeModal={toggleModal}>
-          <Text>
-            User is already in Contacts. Do you want to Update contact?
-          </Text>
-          <Button onClick={update}>Update</Button>
+          <UpdateContactModal
+            contactToUpdate={duplicatedContact}
+            closeModal={toggleModal}
+          ></UpdateContactModal>
         </Modal>
       )}
     </>

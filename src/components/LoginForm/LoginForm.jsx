@@ -1,11 +1,10 @@
 import { useForm } from 'react-hook-form'; // Forms
+import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
-import { Input } from 'components/Input/Input';
-// import { Loader } from 'components/Loader/Loader';
 import { Button } from 'components/Button/Button';
 import { Box } from 'components/Box/Box';
-import { useDispatch } from 'react-redux';
+import { Input } from 'components/Input/Input';
 import { userLogin } from 'redux/auth/authOperations';
 
 const INITIAL_STATE = {

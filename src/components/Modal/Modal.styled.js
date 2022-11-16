@@ -8,26 +8,32 @@ export const Overlay = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   z-index: 1200;
+
+  padding: ${p => p.theme.space[3]}px;
+  margin: 0;
   background-color: ${p => p.theme.colors.backdropColor};
 `;
+
 export const ModalStyled = styled.div`
   background-color: ${p => p.theme.colors.white};
-  width: 95%;
-  max-width: calc(100vw - 48px);
-  max-height: calc(100vh - 24px);
   padding: ${p => p.theme.space[3]}px;
   box-shadow: ${p => p.theme.boxShadow.second};
   border-radius: ${p => p.theme.radii.normal};
 
-  ${p => p.theme.mediaQueries.medium} {
-    width: 460px;
-    padding: ${p => p.theme.space[4]}px;
-  }
+  width: 95%;
+  max-width: 480px;
+  max-height: 95%;
+  overflow-y: scroll;
+  border-radius: 4px;
 
-  ${p => p.theme.mediaQueries.large} {
-    width: 500px;
+  ${p => p.theme.mediaQueries.medium} {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
     padding: ${p => p.theme.space[4]}px;
   }
 `;
