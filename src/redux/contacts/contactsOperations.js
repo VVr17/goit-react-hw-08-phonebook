@@ -32,13 +32,8 @@ export const addContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, { rejectWithValue }) => {
-    const updatedContact = null;
-
     try {
-      const { data } = await axios.delete(
-        `/contacts/${contactId}`,
-        updatedContact
-      );
+      const { data } = await axios.delete(`/contacts/${contactId}`);
       toast.info(`${data.name.toUpperCase()} deleted from CONTACTS`);
       return data;
     } catch (error) {
